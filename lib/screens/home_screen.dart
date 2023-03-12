@@ -10,19 +10,13 @@ import 'package:mini_kart_api/screens/users_screes.dart';
 import 'package:mini_kart_api/services/api_handler.dart';
 import 'package:mini_kart_api/widgets/appbar_icons.dart';
 import 'package:mini_kart_api/widgets/feeds_grid.dart';
-import 'package:mini_kart_api/widgets/feeds_widget.dart';
 import 'package:mini_kart_api/widgets/sale_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'feeds_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+   HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   final List images = [
     "assets/pngwing.com.png",
     "assets/shoe_2.png",
@@ -34,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
     "60",
     "20",
   ];
-
 
   @override
   Widget build(BuildContext context) {

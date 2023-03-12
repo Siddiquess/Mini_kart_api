@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mini_kart_api/consts/global_colors.dart';
+import 'package:mini_kart_api/models/category_model.dart';
 import 'package:mini_kart_api/models/product_model.dart';
+import 'package:mini_kart_api/models/users_data_model.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/home_screen.dart';
@@ -14,8 +16,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductsModel(),
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(
+      create: (context) => ProductsModel(),),
+      ChangeNotifierProvider(
+      create: (context) => CategoryModel(),),
+      ChangeNotifierProvider(
+      create: (context) => UsersDataModel(),),
+    ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MINI CART API',
