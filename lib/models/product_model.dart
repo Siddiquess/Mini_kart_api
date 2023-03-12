@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
-
+import '../services/api_handler.dart';
 import 'category_model.dart';
 
-class ProductsModel with ChangeNotifier{
+class ProductsModel with ChangeNotifier {
   int? id;
   String? title;
   int? price;
@@ -37,8 +35,23 @@ class ProductsModel with ChangeNotifier{
         : null;
   }
 
+  bool _isError = false;
+
+  bool get isError => _isError;
+
+  bool dataError() {
+    _isError = true;
+    notifyListeners();
+    return _isError;
+  }
+
+  Future<ProductsModel> getProduct(id) async {
+    final product = await APIHandler.getProductbyID(id);
+    notifyListeners();
+    return product;
+  }
+
   static List<ProductsModel> productsFromSnapshot(List productSnapshot) {
-    log(productSnapshot[0].toString());
     return productSnapshot.map((data) {
       return ProductsModel.fromJson(data);
     }).toList();
