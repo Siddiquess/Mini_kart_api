@@ -22,11 +22,11 @@ class CategoryScreen extends StatelessWidget {
             );
           } else if (snapshot.data == null) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: Text("Could not load data"),
             );
           } else if (snapshot.hasError) {
-            return Center(
-              child: Text("Error occured ${snapshot.error}"),
+            return const Center(
+              child: Text("Error occured"),
             );
           }
           return GridView.builder(

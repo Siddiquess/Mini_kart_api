@@ -154,7 +154,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       FutureBuilder<List<ProductsModel>>(
-                        future: APIHandler.getAllProducts(),
+                        future: APIHandler.getAllProducts(limit: "3"),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -162,11 +162,11 @@ class HomeScreen extends StatelessWidget {
                               child: CircularProgressIndicator(),
                             );
                           } else if (snapshot.hasError) {
-                            Center(
-                              child: Text("An error occured ${snapshot.error}"),
+                           return const Center(
+                              child: Text("An error occured "),
                             );
                           } else if (snapshot.data == null) {
-                            const Center(
+                          return  const Center(
                               child: Text("Could not load data"),
                             );
                           }

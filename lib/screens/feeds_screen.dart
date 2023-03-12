@@ -12,6 +12,39 @@ class FeedsScreen extends StatefulWidget {
 }
 
 class _FeedsScreenState extends State<FeedsScreen> {
+  int limit = 10;
+
+  bool _isLoading = false;
+
+  bool _isLimit = false;
+
+  final ScrollController _scrollController = ScrollController();
+
+  Future<List<ProductsModel>> scrollingFun() async {
+    _scrollController.addListener(() async {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _isLoading = true;
+        limit += 10;
+        getProducts();
+        _isLoading = false;
+      }
+    });
+
+    return APIHandler.getAllProducts(limit: limit.toString());
+  }
+
+  getProducts() async {
+    await APIHandler.getAllProducts(limit: limit.toString());
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,26 +52,27 @@ class _FeedsScreenState extends State<FeedsScreen> {
         title: const Text('All Products'),
       ),
       body: FutureBuilder<List<ProductsModel>>(
-        future: APIHandler.getAllProducts(),
+        future: scrollingFun(),
         builder: (context, snapshot) {
-          final productList = snapshot.data;
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          // final productList = snapshot.data;
+          if (snapshot.connectionState == ConnectionState.waiting && _isLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            Center(
-              child: Text("An error occured ${snapshot.error}"),
+          return  const Center(
+              child: Text("An error occured"),
             );
           } else if (snapshot.data == null) {
-            const Center(
-              child: Text("Could not load data"),
+          return  const Center(
+              child: CircularProgressIndicator(),
             );
           }
           return GridView.builder(
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-            itemCount: productList!.length,
+            controller: _scrollController,
+            // shrinkWrap: true,
+            // physics: const ScrollPhysics(),
+            itemCount: snapshot.data!.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 0,
@@ -47,8 +81,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
             ),
             itemBuilder: (context, index) {
               return ChangeNotifierProvider.value(
-                value: snapshot.data![index],
-                child: const FeedsWidget());
+                  value: snapshot.data![index], child: const FeedsWidget());
             },
           );
         },
