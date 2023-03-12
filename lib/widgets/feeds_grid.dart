@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_kart_api/models/product_model.dart';
+import 'package:provider/provider.dart';
 
 import 'feeds_widget.dart';
 
@@ -22,11 +23,9 @@ class FeedsGridWidget extends StatelessWidget {
           mainAxisSpacing: 0.0,
           childAspectRatio: 0.6),
       itemBuilder: (ctx, index) {
-        return FeedsWidget(
-          imageUrl: productList[index].images![0],
-          title: productList[index].title.toString(),
-          price: productList[index].price.toString(),
-        );
+        return ChangeNotifierProvider.value(
+          value: productList[index],
+          child: FeedsWidget());
       },
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_kart_api/consts/global_colors.dart';
+import 'package:mini_kart_api/models/product_model.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/home_screen.dart';
 
@@ -12,34 +14,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'MINI CART API',
-      theme: ThemeData(
-        scaffoldBackgroundColor: lightScaffoldColor,
-        primaryColor: lightCardColor,
-        backgroundColor: lightBackgroundColor,
-        appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(
-            color: lightIconColor,
-          ),
-          backgroundColor: lightScaffoldColor,
-          centerTitle: true,
-          titleTextStyle: TextStyle(
-            color: lightTextColor,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-          elevation: 0,
-        ),
-        cardColor: lightCardColor,
-        brightness: Brightness.light,
-        colorScheme: ThemeData().colorScheme.copyWith(
-              secondary: lightIconColor,
-              brightness: Brightness.light,
+    return ChangeNotifierProvider(
+      create: (context) => ProductsModel(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'MINI CART API',
+        theme: ThemeData(
+          scaffoldBackgroundColor: lightScaffoldColor,
+          primaryColor: lightCardColor,
+          backgroundColor: lightBackgroundColor,
+          appBarTheme: AppBarTheme(
+            iconTheme: IconThemeData(
+              color: lightIconColor,
             ),
+            backgroundColor: lightScaffoldColor,
+            centerTitle: true,
+            titleTextStyle: TextStyle(
+              color: lightTextColor,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+            elevation: 0,
+          ),
+          cardColor: lightCardColor,
+          brightness: Brightness.light,
+          colorScheme: ThemeData().colorScheme.copyWith(
+                secondary: lightIconColor,
+                brightness: Brightness.light,
+              ),
+        ),
+        home:  HomeScreen(),
       ),
-      home:  HomeScreen(),
     );
   }
 }

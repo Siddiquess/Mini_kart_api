@@ -179,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                           return FeedsGridWidget(productList: snapshot.data!);
                         },
-                      ),
+                      )
                     ],
                   ),
                 ),

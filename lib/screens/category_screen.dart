@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mini_kart_api/widgets/category.dart';
+import 'package:provider/provider.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -20,7 +21,9 @@ class CategoryScreen extends StatelessWidget {
           childAspectRatio: 1.2,
         ),
         itemBuilder: (context, index) {
-          return CategoryWidget();
+          return ChangeNotifierProvider.value(
+            value: ,
+            child: CategoryWidget());
         },
       ),
     );

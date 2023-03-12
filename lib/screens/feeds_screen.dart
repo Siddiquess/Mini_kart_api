@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/product_model.dart';
 import '../services/api_handler.dart';
 import '../widgets/feeds_widget.dart';
@@ -45,11 +46,9 @@ class _FeedsScreenState extends State<FeedsScreen> {
               childAspectRatio: 0.65,
             ),
             itemBuilder: (context, index) {
-              return FeedsWidget(
-                imageUrl: productList[index].images![0],
-                title: productList[index].title.toString(),
-                price: productList[index].price.toString(),
-              );
+              return ChangeNotifierProvider.value(
+                value: snapshot.data![index],
+                child: const FeedsWidget());
             },
           );
         },

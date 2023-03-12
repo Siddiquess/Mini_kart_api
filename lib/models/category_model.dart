@@ -1,5 +1,7 @@
 
-class CategoryModel {
+import 'package:flutter/cupertino.dart';
+
+class CategoryModel with ChangeNotifier {
   int? id;
   String? name;
   String? image;
